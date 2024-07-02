@@ -1,0 +1,2 @@
+_extends: .github
+tag-template: sandbox-$NEXT_MINOR_VERSION
