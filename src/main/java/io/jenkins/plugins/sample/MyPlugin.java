@@ -63,8 +63,9 @@ public class MyPlugin extends ManagementLink implements Describable<MyPlugin> {
 
         public static AtomicInteger ctField1 = new AtomicInteger(0);
 
-        public FormValidation doCheckField1(@QueryParameter String value) {
+        public FormValidation doCheckField1(@QueryParameter("field1") String myRenamedParam) {
             ctField1.incrementAndGet();
+            System.out.println(myRenamedParam);
             return FormValidation.ok("Total number of field1 validation requests: " + ctField1.get());
         }
     }
