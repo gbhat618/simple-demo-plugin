@@ -77,7 +77,7 @@ public class MyPlugin extends ManagementLink implements Describable<MyPlugin> {
 
         /*
         Problem 1:
-        
+
         Here naming the method parameter other than `value` causes the hudson-behavior.js to register the event twice,
         The registration of the checker event happens twice, as below
             1. At L743 in the else block
@@ -113,7 +113,9 @@ public class MyPlugin extends ManagementLink implements Describable<MyPlugin> {
         }
 
         /*
-
+            In continuation to the comment in the previous method `doCheckField1`,
+            same behaviour happens here as well, naming the parameter `field2` is problematic, and it should be named
+            as `value`.
          */
         public FormValidation doCheckField2(@QueryParameter String field2, @QueryParameter String field1) {
             ctField2.incrementAndGet();
