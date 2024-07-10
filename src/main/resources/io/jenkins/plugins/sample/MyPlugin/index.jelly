@@ -2,12 +2,33 @@
 <j:jelly xmlns:j="jelly:core" xmlns:l="/lib/layout" xmlns:f="/lib/form">
         <l:layout title="My Plugin" norefresh="true">
                 <l:main-panel>
-                    <j:set var="instance" value="${it}"/>
-                    <j:set var="descriptor" value="${it.descriptor}"/>
+                    <!--
+                    Problem 2:
+                    In here if we remove the surrounding form tag; having only one field field1 works.
+                    But the moment we add the field2 with dependency on field1, it doesn't work.
 
-                    <f:entry title="Field 1" field="field1">
+                    There is an error that happens in the hudson-behavior.js
+                    In the method, `findFormParent` where the check `while (e != form)` will evaluate to false.
+
+                    The issue is actually the Developer's fault, not having the <form> tag surrounded.
+
+                    Suggested change:
+                    Log a warning when the form is null inside the hudson-behavior.js in `findFormParent` method.
+                    This will help the developer realize the missing form tag, and can easily fix the mistake.
+                    -->
+                    <f:form method="" name="f1" action="">
+                        <j:set var="instance" value="${it}"/>
+                        <j:set var="descriptor" value="${it.descriptor}"/>
+
+                        <f:entry title="Field 1" field="field1">
+                                <f:textbox/>
+                        </f:entry>
+
+                        <!-- Assume field2's validation depends on field1 -->
+                        <f:entry title="Field 2" field="field2">
                             <f:textbox/>
-                    </f:entry>
+                        </f:entry>
+                    </f:form>
                 </l:main-panel>
         </l:layout>
 </j:jelly>
